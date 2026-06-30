@@ -1,15 +1,15 @@
 application:
-  name: app
+  name: stripe-integration
   pods:
-    - name: web
-      image: "registry.nexlayer.io/user_01kna6j8vrcfj9q0wjtq5qsq3n/stripe-integration:19f19ae589b"
+    - name: app
+      image: "registry.nexlayer.io/user_01kdnss9re3ack631zmxgpra36/stripe-integration:19f1a210884"
       path: /
       servicePorts:
         - 3000
       vars:
-        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
-        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
-        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}"
+        NODE_ENV: "production"
         PORT: "3000"
         HOSTNAME: "0.0.0.0"
-        NODE_ENV: "production"
+        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
+        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
+        NEXT_PUBLIC_APP_URL: "<% URL %>"

@@ -15,7 +15,7 @@
 
 ## Project Summary
 <!-- nexlayer:section agent-managed=project_summary -->
-A Next.js application integrated with the Stripe API for handling payments and subscription management.
+A Next.js application integrated with Stripe for payment processing, utilizing the App Router for its frontend and API endpoints.
 <!-- nexlayer:end -->
 
 ## Technology Stack
@@ -24,17 +24,17 @@ A Next.js application integrated with the Stripe API for handling payments and s
 |------|------|---------|---------------|
 | Next.js | framework | 16.2.9 | package.json |
 | React | framework | 19.2.4 | package.json |
-| TypeScript | language | 5 | package.json |
 | Stripe | tool | 22.3.0 | package.json |
-| TailwindCSS | tool | 4 | package.json |
+| Node.js | language | 22-alpine | Dockerfile |
+| TypeScript | language | 5 | package.json |
 <!-- nexlayer:end -->
 
 ## Repository Structure
 <!-- nexlayer:section agent-managed=structure_map -->
-- app/ — Next.js App Router pages and server components
-- lib/ — Shared utility functions and Stripe client configuration
+- app/ — Next.js App Router pages and API routes
 - public/ — Static assets
-- next.config.ts — Next.js configuration
+- lib/ — Shared utility functions and business logic
+- Dockerfile — Containerization configuration
 <!-- nexlayer:end -->
 
 ## External Services Required
@@ -74,33 +74,32 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
 
 | Pod | Variable | Value | Kind |
 |-----|----------|-------|------|
-| `web` | `STRIPE_SECRET_KEY` | `"${STRIPE_SECRET_KEY}"` | inter-pod |
-| `web` | `STRIPE_WEBHOOK_SECRET` | `"${STRIPE_WEBHOOK_SECRET}"` | inter-pod |
-| `web` | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | `"${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}"` | inter-pod |
-| `web` | `PORT` | `"3000"` | plain |
-| `web` | `HOSTNAME` | `"0.0.0.0"` | plain |
-| `web` | `NODE_ENV` | `"production"` | plain |
+| `app` | `NODE_ENV` | `"production"` | plain |
+| `app` | `PORT` | `"3000"` | plain |
+| `app` | `HOSTNAME` | `"0.0.0.0"` | plain |
+| `app` | `STRIPE_SECRET_KEY` | `"${STRIPE_SECRET_KEY}"` | inter-pod |
+| `app` | `STRIPE_WEBHOOK_SECRET` | `"${STRIPE_WEBHOOK_SECRET}"` | inter-pod |
+| `app` | `NEXT_PUBLIC_APP_URL` | `"<% URL %>"` | plain |
 
 ### nexlayer.yaml
 
 ```yaml
 application:
-  name: app
+  name: stripe-integration
   pods:
-    - name: web
-      image: "registry.nexlayer.io/user_01kna6j8vrcfj9q0wjtq5qsq3n/stripe-integration:19f19ae589b"
+    - name: app
+      image: "registry.nexlayer.io/user_01kdnss9re3ack631zmxgpra36/stripe-integration:19f1a210884"
       path: /
       servicePorts:
         - 3000
       vars:
-        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
-        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
-        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}"
+        NODE_ENV: "production"
         PORT: "3000"
         HOSTNAME: "0.0.0.0"
-        NODE_ENV: "production"
+        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
+        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
+        NEXT_PUBLIC_APP_URL: "<% URL %>"
 ```
-
 <!-- nexlayer:end -->
 
 ## Nexlayer Deployment Plan
@@ -124,27 +123,27 @@ application:
 
 ## Nexlayer Configuration
 <!-- nexlayer:section agent-managed=nexlayer_config -->
-**Last deployed:** 2026-06-30T18:00:17Z  
-**Live URL:** https://kitbear-studio-app.cloud.nexlayer.ai  
-**Runtime:** node · **Port:** 3000  
-**Deploy branch:** main  
+**Last deployed:** 2026-06-30T21:30:59Z  
+**Live URL:** https://kitbear-studio-stripe-integration.cloud.nexlayer.ai  
+**Runtime:**  · **Port:** auto-detected  
+**Deploy branch:** nexlayer  
 
 ```yaml
 application:
-  name: app
+  name: stripe-integration
   pods:
-    - name: web
-      image: "registry.nexlayer.io/user_01kna6j8vrcfj9q0wjtq5qsq3n/stripe-integration:19f19ae589b"
+    - name: app
+      image: "registry.nexlayer.io/user_01kdnss9re3ack631zmxgpra36/stripe-integration:19f1a210884"
       path: /
       servicePorts:
         - 3000
       vars:
-        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
-        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
-        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: "${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}"
+        NODE_ENV: "production"
         PORT: "3000"
         HOSTNAME: "0.0.0.0"
-        NODE_ENV: "production"
+        STRIPE_SECRET_KEY: "${STRIPE_SECRET_KEY}"
+        STRIPE_WEBHOOK_SECRET: "${STRIPE_WEBHOOK_SECRET}"
+        NEXT_PUBLIC_APP_URL: "<% URL %>"
 ```
 <!-- nexlayer:end -->
 
@@ -152,6 +151,7 @@ application:
 <!-- nexlayer:section agent-managed=build_history -->
 | Date | Status | Notes |
 |------|--------|-------|
-| 2026-06-30T17:58:23Z | analyzed | initial repo analysis |
-| 2026-06-30T18:00:17Z | success | deployed https://kitbear-studio-app.cloud.nexlayer.ai |
+| 2026-06-30T21:28:31Z | analyzed | initial repo analysis |
+| 2026-06-30T21:30:59Z | success | deployed https://kitbear-studio-stripe-integration.cloud.nexlayer.ai |
 <!-- nexlayer:end -->
+
