@@ -1,4 +1,7 @@
 FROM mirror.gcr.io/library/node:22-alpine AS deps
+# build-time env seeded from user-provided build-time secrets
+ENV NEXT_PUBLIC_APP_URL="<% URL %>"
+ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51TmCZbRSmwEZhQNvVjIKdzFRqoFxfPfLyytxv312kmvVeFDrPh3Qxbg0uINVVxkz75wNJVuYj4CcW0pPl9cq1aWW00qJUzdJaY
 WORKDIR /app
 RUN apk add --no-cache python3 make g++
 COPY package*.json ./

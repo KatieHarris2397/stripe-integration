@@ -15,7 +15,7 @@
 
 ## Project Summary
 <!-- nexlayer:section agent-managed=project_summary -->
-A Next.js application integrated with Stripe for payment processing, utilizing the App Router for its frontend and API endpoints.
+A Next.js web application integrated with Stripe for payment processing, utilizing the App Router for frontend and backend logic.
 <!-- nexlayer:end -->
 
 ## Technology Stack
@@ -24,17 +24,17 @@ A Next.js application integrated with Stripe for payment processing, utilizing t
 |------|------|---------|---------------|
 | Next.js | framework | 16.2.9 | package.json |
 | React | framework | 19.2.4 | package.json |
+| TypeScript | language | 5 | package.json |
 | Stripe | tool | 22.3.0 | package.json |
 | Node.js | language | 22-alpine | Dockerfile |
-| TypeScript | language | 5 | package.json |
 <!-- nexlayer:end -->
 
 ## Repository Structure
 <!-- nexlayer:section agent-managed=structure_map -->
-- app/ — Next.js App Router pages and API routes
+- app/ — Next.js App Router pages and server actions
+- lib/ — Shared utility functions and Stripe configuration
 - public/ — Static assets
-- lib/ — Shared utility functions and business logic
-- Dockerfile — Containerization configuration
+- Dockerfile — Multi-stage build for standalone Next.js deployment
 <!-- nexlayer:end -->
 
 ## External Services Required
@@ -123,7 +123,7 @@ application:
 
 ## Nexlayer Configuration
 <!-- nexlayer:section agent-managed=nexlayer_config -->
-**Last deployed:** 2026-06-30T21:30:59Z  
+**Last deployed:** 2026-06-30T22:26:55Z  
 **Live URL:** https://kitbear-studio-stripe-integration.cloud.nexlayer.ai  
 **Runtime:**  · **Port:** auto-detected  
 **Deploy branch:** nexlayer  
@@ -151,7 +151,8 @@ application:
 <!-- nexlayer:section agent-managed=build_history -->
 | Date | Status | Notes |
 |------|--------|-------|
-| 2026-06-30T21:28:31Z | analyzed | initial repo analysis |
-| 2026-06-30T21:30:59Z | success | deployed https://kitbear-studio-stripe-integration.cloud.nexlayer.ai |
+| 2026-06-30T22:24:44Z | analyzed | initial repo analysis |
+| 2026-06-30T22:26:55Z | success | deployed https://kitbear-studio-stripe-integration.cloud.nexlayer.ai |
 <!-- nexlayer:end -->
+
 
